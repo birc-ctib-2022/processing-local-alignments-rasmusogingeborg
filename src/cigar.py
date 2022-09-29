@@ -39,7 +39,6 @@ def cigar_to_edits(cigar: str) -> str:
         edits += tup[0]*tup[1]
     return edits
 
-
 def split_blocks(x: str) -> list[str]:
     """Split a string into blocks of equal character.
 
@@ -74,3 +73,4 @@ def edits_to_cigar(edits: str) -> str:
     for block in blocks:
         cigar += str(len(block))+block[0]
     return cigar
+

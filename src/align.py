@@ -1,5 +1,28 @@
 """A module for translating between alignments and edits sequences."""
 
+import re
+
+def cigar_to_edits(cigar: str) -> str:
+    """Expand the compressed CIGAR encoding into the full list of edits.
+
+    >>> cigar_to_edits("1M1D6M1I4M")
+    'MDMMMMMMIMMMM'
+
+    """
+    edits = ''
+    splitted = split_pairs(cigar)
+    for tup in splitted:
+        edits += tup[0]*tup[1]
+    return edits
+
+def split_pairs(cigar: str) -> list[tuple[int, str]]:
+    """Split a CIGAR string into a list of integer-operation pairs.
+
+    >>> split_pairs("1M1D6M1I4M")
+    [(1, 'M'), (1, 'D'), (6, 'M'), (1, 'I'), (4, 'M')]
+
+    """
+    return [(int(i), op) for i, op in re.findall(r"(\d+)([^\d]+)", cigar)]
 
 def align(x: str, y: str, edits: str) -> tuple[str, str]:
     """Align two sequences from a sequence of edits.
@@ -16,6 +39,7 @@ def align(x: str, y: str, edits: str) -> tuple[str, str]:
     ('ACCACAGT-CATA', 'A-CAGAGTACAAA')
 
     """
+    edits =cigar_to_edits(edits)
     row1 = ''
     row2 = ''
     i,j = 0,0
@@ -34,7 +58,6 @@ def align(x: str, y: str, edits: str) -> tuple[str, str]:
             row2 += y[j]
             j += 1
     return (row1, row2)
-
 
 def edits(x: str, y: str) -> str:
     """Extract the edit operations from a pairwise alignment.
@@ -59,3 +82,22 @@ def edits(x: str, y: str) -> str:
         else:
             edits += 'M'
     return edits
+
+# 
+print(align('accaaagta', 'acaaatgtcca', '1M1D2M1I4M2I1M')) # string idx out of range. 
+print(align('acgt', 'ac', '2M2D')) # string idx out of range.
+print(align('a', '', '1D')) # string idx out of range.
+print(align('acgttcga', 'aaaaa', '3M3D2M'))
+
+#Desired results:
+#acca-aagt--a
+#a-caaatgtcca
+
+#acgt
+#ac--
+
+#a
+#-
+
+#acgttcga
+#aaa---aa
