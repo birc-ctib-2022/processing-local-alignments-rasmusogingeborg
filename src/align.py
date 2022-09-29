@@ -16,7 +16,30 @@ def align(x: str, y: str, edits: str) -> tuple[str, str]:
     ('ACCACAGT-CATA', 'A-CAGAGTACAAA')
 
     """
-    return "", ""
+    seq1=[]
+    seq2=[]
+    s1=0
+    s2=0
+    for i in edits:
+        if i == "M":
+            seq1.append(x[s1])
+            seq2.append(y[s2])
+            s1+=1
+            s2+=1
+        elif i == "D":
+            seq1.append(x[s1])
+            seq2.append("-")
+            s1+=1
+        elif i == "I":
+            seq1.append("-")
+            seq2.append(y[s2])
+            s2+=1
+
+    seq1="".join(seq1)
+    seq2="".join(seq2)
+
+
+    return (seq1, seq2)
 
 
 def edits(x: str, y: str) -> str:
@@ -33,4 +56,15 @@ def edits(x: str, y: str) -> str:
     'MDMMMMMMIMMMM'
 
     """
-    return ""
+    ed=[]
+    for i in range(len(x)):
+        if x[i]!="-" and y[i]!="-":
+            ed.append("M")
+        elif x[i]=="-":
+            ed.append("I")
+        elif y[i]=="-":
+            ed.append("D")
+    
+    ed="".join(ed)
+
+    return ed

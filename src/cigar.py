@@ -1,6 +1,7 @@
 """A module for translating between alignments and edits sequences."""
 
 import re
+from tkinter import Y
 
 
 def split_pairs(cigar: str) -> list[tuple[int, str]]:
@@ -17,6 +18,7 @@ def split_pairs(cigar: str) -> list[tuple[int, str]]:
     [(1, 'M'), (1, 'D'), (6, 'M'), (1, 'I'), (4, 'M')]
 
     """
+
     return [(int(i), op) for i, op in re.findall(r"(\d+)([^\d]+)", cigar)]
 
 
@@ -33,7 +35,17 @@ def cigar_to_edits(cigar: str) -> str:
     'MDMMMMMMIMMMM'
 
     """
-    return ""
+
+    list1=[]
+    for i in range(0:len(cigar),2):
+        a=int(cigar[i])
+        b=cigar[i+1]
+        list1.append(a*b)
+
+    list1="".join(list1)
+
+
+    return list1
 
 
 def split_blocks(x: str) -> list[str]:
@@ -65,4 +77,12 @@ def edits_to_cigar(edits: str) -> str:
     '1M1D6M1I4M'
 
     """
-    return ""
+    y=[]
+    x=split_blocks(edits)
+    for i in x:
+        y.append(len(i))
+        y.append(i)
+    
+    y="".join(y)
+
+    return y
