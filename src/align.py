@@ -82,22 +82,3 @@ def edits(x: str, y: str) -> str:
         else:
             edits += 'M'
     return edits
-
-# 
-print(align('accaaagta', 'acaaatgtcca', '1M1D2M1I4M2I1M')) # string idx out of range. 
-print(align('acgt', 'ac', '2M2D')) # string idx out of range.
-print(align('a', '', '1D')) # string idx out of range.
-print(align('acgttcga', 'aaaaa', '3M3D2M'))
-
-#Desired results:
-#acca-aagt--a
-#a-caaatgtcca
-
-#acgt
-#ac--
-
-#a
-#-
-
-#acgttcga
-#aaa---aa
