@@ -39,7 +39,6 @@ def align(x: str, y: str, edits: str) -> tuple[str, str]:
     ('ACCACAGT-CATA', 'A-CAGAGTACAAA')
 
     """
-<<<<<<< HEAD
     seq1=[]
     seq2=[]
     s1=0
@@ -65,27 +64,6 @@ def align(x: str, y: str, edits: str) -> tuple[str, str]:
 
     return (seq1, seq2)
     
-=======
-    edits =cigar_to_edits(edits)
-    row1 = ''
-    row2 = ''
-    i,j = 0,0
-    for idx in range(len(edits)):
-        if edits[idx] == 'M':
-            row1 += x[i]
-            row2 += y[j]
-            i += 1
-            j += 1
-        elif edits[idx] == 'D':
-            row1 += x[i]
-            row2 += '-'
-            i += 1
-        else: # edits[i] == 'I'
-            row1 += '-'
-            row2 += y[j]
-            j += 1
-    return (row1, row2)
->>>>>>> b9cea72dd6e6a7e032b6ba95b0a43f41905b74a5
 
 def edits(x: str, y: str) -> str:
     """Extract the edit operations from a pairwise alignment.
