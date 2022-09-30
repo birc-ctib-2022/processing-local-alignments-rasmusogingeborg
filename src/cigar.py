@@ -48,7 +48,6 @@ def cigar_to_edits(cigar: str) -> str:
     return list1
 
 
-
 def split_blocks(x: str) -> list[str]:
     """Split a string into blocks of equal character.
 
@@ -78,6 +77,7 @@ def edits_to_cigar(edits: str) -> str:
     '1M1D6M1I4M'
 
     """
+<<<<<<< HEAD
     y=[]
     x=split_blocks(edits)
     for i in x:
@@ -87,3 +87,11 @@ def edits_to_cigar(edits: str) -> str:
     y="".join(y)
 
     return y
+=======
+    cigar = ''
+    blocks = split_blocks(edits)
+    for block in blocks:
+        cigar += str(len(block))+block[0]
+    return cigar
+
+>>>>>>> b9cea72dd6e6a7e032b6ba95b0a43f41905b74a5
