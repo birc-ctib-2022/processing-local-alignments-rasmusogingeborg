@@ -40,6 +40,7 @@ def align(x: str, y: str, edits: str) -> tuple[str, str]:
 
 
     return (seq1, seq2)
+    
 
 
 def edits(x: str, y: str) -> str:

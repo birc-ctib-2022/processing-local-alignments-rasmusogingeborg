@@ -37,7 +37,7 @@ def cigar_to_edits(cigar: str) -> str:
     """
 
     list1=[]
-    for i in range(0:len(cigar),2):
+    for i in range(0,len(cigar)-1,2):
         a=int(cigar[i])
         b=cigar[i+1]
         list1.append(a*b)
@@ -46,6 +46,7 @@ def cigar_to_edits(cigar: str) -> str:
 
 
     return list1
+
 
 
 def split_blocks(x: str) -> list[str]:
@@ -80,8 +81,8 @@ def edits_to_cigar(edits: str) -> str:
     y=[]
     x=split_blocks(edits)
     for i in x:
-        y.append(len(i))
-        y.append(i)
+        y.append(str(len(i)))
+        y.append(i[0])
     
     y="".join(y)
 
